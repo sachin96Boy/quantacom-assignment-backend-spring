@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -13,5 +14,11 @@ public class UserService {
     private UserRepository userRepository;
     public List<UserModel> allUsers(){
         return userRepository.findAll();
+    }
+
+//    using optional becaus it can also
+//    return null if no data found
+    public Optional<UserModel> singleUser(String id){
+        return  userRepository.findById(id);
     }
 }
