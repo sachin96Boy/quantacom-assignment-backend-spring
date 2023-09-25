@@ -1,6 +1,7 @@
 package dev.sachin96boy.employbend.security.jwt;
 
 
+import dev.sachin96boy.employbend.security.services.UserDetailsImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,7 +29,7 @@ public class JWTUtils {
     }
 
     public String generateToken(Authentication authtication){
-        UserDetails userDetails = (UserDetails) authtication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authtication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
