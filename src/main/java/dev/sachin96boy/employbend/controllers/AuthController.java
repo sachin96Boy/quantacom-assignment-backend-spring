@@ -62,13 +62,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest){
-        if (userRepository.existsByUsername(signupRequest.getUsername())){
+        if (userRepository.existsByuserName(signupRequest.getUsername())){
             return ResponseEntity.badRequest()
                     .body(
                             new MessageResponse("Error: Username already in list")
                     );
         }
-        if (userRepository.existsByEmail(signupRequest.getUserEmail())){
+        if (userRepository.existsByuserEmail(signupRequest.getUserEmail())){
             return ResponseEntity.badRequest()
                     .body(
                             new MessageResponse("Error: email already in list")

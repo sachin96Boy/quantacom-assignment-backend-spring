@@ -27,7 +27,7 @@ public class UserService {
 //    public boolean existsByUsername(String username){
 //        Query query = new Query();
 //        query.addCriteria(Criteria.where("userName").is(username));
-//        Optional<UserModel> existUser =   userRepository.findOne(query, UserModel.class);
+//        Optional<UserModel> existUser =  userRepository.findOne(query, UserModel.class);
 //        if (existUser != null){
 //            return true;
 //        }
