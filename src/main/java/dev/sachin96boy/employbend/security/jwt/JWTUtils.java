@@ -9,7 +9,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -33,14 +32,14 @@ public class JWTUtils {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpinMs))
+                .setExpiration(new Date(System.currentTimeMillis() + this.jwtExpinMs))
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
 
     }
 
     private Key key(){
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtsecret));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(this.jwtsecret));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
