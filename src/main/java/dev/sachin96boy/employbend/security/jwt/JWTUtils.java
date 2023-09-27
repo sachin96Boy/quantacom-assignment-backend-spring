@@ -9,13 +9,14 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
 
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-@Service
+@Component
 public class JWTUtils {
 
     @Value("${sachin96boy.app.jwtSecret}")
@@ -27,19 +28,22 @@ public class JWTUtils {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String generateToken(Authentication authtication){
-        UserDetailsImpl userDetails = (UserDetailsImpl) authtication.getPrincipal();
+    public String generateToken(Authentication authentication) throws Exception {
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + this.jwtExpinMs))
+                .setExpiration(new Date(System.currentTimeMillis() + Integer.parseInt(jwtExpinMs)))
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
+
 
     }
 
     private Key key(){
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(this.jwtsecret));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtsecret));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){

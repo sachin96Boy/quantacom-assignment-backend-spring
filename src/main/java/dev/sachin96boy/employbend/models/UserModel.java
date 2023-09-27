@@ -9,12 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
-enum UserType{
-    USER,
-    ADMIN
-}
-
-@Document(collation = "users")
+@Document(collection = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

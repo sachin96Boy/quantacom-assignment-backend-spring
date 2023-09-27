@@ -2,6 +2,7 @@ package dev.sachin96boy.employbend.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.sachin96boy.employbend.models.UserModel;
+import dev.sachin96boy.employbend.models.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,21 +19,17 @@ import java.util.Collection;
 @Data
 public class UserDetailsImpl implements UserDetails {
 
+
     private String id;
     private String userName;
     private String userEmail;
+
+    private UserType userType;
 
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
-
-    public UserDetailsImpl(String id, String userName, String userEmail, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.password = password;
-    }
 
     public static UserDetailsImpl build(UserModel user){
 
@@ -40,7 +37,9 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getUserName(),
                 user.getUserEmail(),
-                user.getPassword()                
+                user.getUserType(),
+                user.getPassword(),
+                null
         );
     }
 
