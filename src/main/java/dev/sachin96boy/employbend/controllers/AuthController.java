@@ -2,10 +2,7 @@ package dev.sachin96boy.employbend.controllers;
 
 
 import dev.sachin96boy.employbend.models.UserModel;
-import dev.sachin96boy.employbend.payload.JwtResponse;
-import dev.sachin96boy.employbend.payload.LoginRequest;
-import dev.sachin96boy.employbend.payload.MessageResponse;
-import dev.sachin96boy.employbend.payload.SignupRequest;
+import dev.sachin96boy.employbend.payload.*;
 import dev.sachin96boy.employbend.repository.UserRepository;
 import dev.sachin96boy.employbend.security.jwt.JWTUtils;
 import dev.sachin96boy.employbend.security.services.UserDetailsImpl;
@@ -95,8 +92,12 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(
-                new MessageResponse(
-                        "User Register Success"
+                new UserSignupResponse(
+                        user.getId(),
+                        user.getUserName(),
+                        user.getUserEmail(),
+                        user.getPassword(),
+                        user.getUserType()
                 )
         );
     }
