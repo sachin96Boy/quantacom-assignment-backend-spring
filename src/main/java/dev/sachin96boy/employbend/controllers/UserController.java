@@ -1,6 +1,7 @@
 package dev.sachin96boy.employbend.controllers;
 
 import dev.sachin96boy.employbend.models.UserModel;
+import dev.sachin96boy.employbend.payload.PasswordResetRequest;
 import dev.sachin96boy.employbend.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,10 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<UserModel>> getSingleUser(@PathVariable String id){
         return new ResponseEntity<Optional<UserModel>>(userService.singleUser(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public  ResponseEntity<Optional<UserModel>> updateSingleUser(@PathVariable String id, @RequestBody PasswordResetRequest passwordResetRequest){
+        return new ResponseEntity<Optional<UserModel>>(userService.updatePassword(id, passwordResetRequest), HttpStatus.OK);
     }
 }
